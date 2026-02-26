@@ -1,0 +1,23 @@
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .full-width { 
+    width: 100%; 
+  }
+  
+  .mt-2 { 
+    margin-top: 8px; 
+  }
+  
+  .toggle-container { 
+    padding: 8px 0; 
+  }
+  
+  mat-dialog-content {
+    overflow-x: hidden;
+    padding-top: 8px;
+  }

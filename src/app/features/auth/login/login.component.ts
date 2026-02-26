@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-// Importações do Angular Material
+import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
+    CommonModule, ReactiveFormsModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -23,7 +21,12 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -34,8 +37,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Tentativa de login com:', this.loginForm.value);
-      // Futuramente, chamaremos o serviço de autenticação aqui
+      this.authService.login(this.loginForm.value).subscribe({
+        next: () => {
+          // Login com sucesso! Vai para a tela inicial
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          // Exibe a mensagem de erro que vem da API C# (ex: "Login ou senha inválidos!")
+          const errorMessage = err.error || 'Erro ao realizar login.';
+          this.snackBar.open(errorMessage, 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          });
+        }
+      });
     }
   }
 }

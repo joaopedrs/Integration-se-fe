@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Usuário' : 'Novo Usuário' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="fill" class="full-width mt-2">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" placeholder="Nome completo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>E-mail</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="exemplo@dominio.com" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width" *ngIf="form.get('role')?.value !== 3">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password" 
+               [placeholder]="isEditMode ? 'Deixe em branco para não alterar' : 'Digite a senha'" />
+      </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Perfil (Role)</mat-label>
+        <mat-select formControlName="role">
+          <mat-option [value]="1">Administrador</mat-option>
+          <mat-option [value]="2">Usuário Padrão</mat-option>
+          <mat-option [value]="3">Usuário de Serviço</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <div class="toggle-container" *ngIf="isEditMode">
+      <mat-slide-toggle formControlName="isActive" color="primary">
+        Usuário Ativo
+      </mat-slide-toggle>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">Salvar</button>
+</mat-dialog-actions>

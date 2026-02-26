@@ -1,0 +1,73 @@
+<div class="crud-container">
+  
+    <div class="action-bar">
+      <div class="action-title">
+        <h2>Parâmetros do Sistema</h2>
+        <span class="subtitle">Gerencie as variáveis de integração</span>
+      </div>
+  
+      <div class="action-buttons">
+        <button mat-flat-button color="primary" (click)="onAdd()">
+          <mat-icon>add</mat-icon>
+          Novo Registro
+        </button>
+  
+        <button mat-stroked-button color="accent" 
+                [disabled]="selection.selected.length !== 1" 
+                (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+  
+        <button mat-stroked-button color="warn" 
+                [disabled]="selection.selected.length === 0" 
+                (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          Excluir
+        </button>
+      </div>
+    </div>
+  
+    <div class="table-container mat-elevation-z2">
+      <table mat-table [dataSource]="dataSource">
+  
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef class="checkbox-column">
+            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          color="primary">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row" class="checkbox-column">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          color="primary">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Código </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Descrição </th>
+            <td mat-cell *matCellDef="let element"> <strong>{{element.description}}</strong> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> Valor </th>
+            <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)"
+            [class.selected-row]="selection.isSelected(row)">
+        </tr>
+      </table>
+    </div>
+  </div>

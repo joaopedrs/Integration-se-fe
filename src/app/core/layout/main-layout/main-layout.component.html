@@ -1,0 +1,48 @@
+<mat-sidenav-container class="layout-container">
+  
+    <mat-sidenav mode="side" opened class="sidenav" [ngClass]="isExpanded ? 'expanded' : 'collapsed'">
+      
+      <div class="sidenav-header" [ngClass]="isExpanded ? 'header-expanded' : 'header-collapsed'">
+        <span class="logo-text" *ngIf="isExpanded">Menu ITSM</span>
+        
+        <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
+          <mat-icon>{{ isExpanded ? 'chevron_left' : 'menu' }}</mat-icon>
+        </button>
+      </div>
+  
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Dashboard' : ''" matTooltipPosition="right">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle *ngIf="isExpanded">Dashboard</span>
+        </a>
+
+        <a mat-list-item routerLink="/users" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Usuários' : ''" matTooltipPosition="right">
+            <mat-icon matListItemIcon>people</mat-icon>
+            <span matListItemTitle *ngIf="isExpanded">Usuários</span>
+          </a>
+          
+        <a mat-list-item routerLink="/parameters" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Parâmetros' : ''" matTooltipPosition="right">
+            <mat-icon matListItemIcon>settings</mat-icon>
+            <span matListItemTitle *ngIf="isExpanded">Parâmetros</span>
+          </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content [ngClass]="isExpanded ? 'content-expanded' : 'content-collapsed'">
+      
+      <mat-toolbar color="primary" class="top-toolbar">
+        <span>Painel de Integração</span>
+  
+        <span class="spacer"></span>
+  
+        <button mat-icon-button aria-label="Perfil do usuário">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </mat-toolbar>
+  
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>

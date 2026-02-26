@@ -1,0 +1,86 @@
+.layout-container {
+    height: 100vh;
+  }
+  
+  /* Transição do Menu Lateral */
+  .sidenav {
+    background-color: #fafafa;
+    border-right: 1px solid #e0e0e0;
+    transition: width 0.3s ease;
+    overflow-x: hidden; /* Evita barra de rolagem horizontal durante a animação */
+  
+    &.expanded {
+      width: 260px;
+    }
+  
+    &.collapsed {
+      width: 65px; /* Largura exata para caber apenas o ícone */
+    }
+  }
+  
+  /* Cabeçalho do menu onde fica o botão de toggle */
+  .sidenav-header {
+    display: flex;
+    align-items: center;
+    height: 64px; /* Altura padrão da toolbar do material */
+    padding: 0 8px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+    transition: justify-content 0.3s ease;
+  
+    &.header-expanded {
+      justify-content: space-between;
+      padding-left: 16px;
+    }
+  
+    &.header-collapsed {
+      justify-content: center;
+    }
+  
+    .logo-text {
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #333;
+      white-space: nowrap; /* Impede o texto de quebrar linha ao animar */
+    }
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .top-toolbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 2; 
+    position: relative;
+  }
+  
+  .main-content {
+    padding: 24px;
+    background-color: #f9f9f9;
+    min-height: calc(100vh - 64px);
+    box-sizing: border-box;
+  }
+  
+  .active-link {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1976d2; 
+    
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+
+/* Controle manual da margem do conteúdo para sincronizar perfeitamente com o menu */
+mat-sidenav-content {
+    transition: margin-left 0.3s ease !important;
+  }
+  
+  .content-expanded {
+    margin-left: 260px !important; /* Exatamente a largura do menu aberto */
+  }
+  
+  .content-collapsed {
+    margin-left: 65px !important; /* Exatamente a largura do menu recolhido */
+  }
