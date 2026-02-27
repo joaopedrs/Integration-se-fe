@@ -3,7 +3,7 @@
     <mat-sidenav mode="side" opened class="sidenav" [ngClass]="isExpanded ? 'expanded' : 'collapsed'">
       
       <div class="sidenav-header" [ngClass]="isExpanded ? 'header-expanded' : 'header-collapsed'">
-        <span class="logo-text" *ngIf="isExpanded">Menu ITSM</span>
+        <span class="logo-text" *ngIf="isExpanded">Service Experience</span>
         
         <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
           <mat-icon>{{ isExpanded ? 'chevron_left' : 'menu' }}</mat-icon>
@@ -19,11 +19,20 @@
         <a mat-list-item routerLink="/users" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Usuários' : ''" matTooltipPosition="right">
             <mat-icon matListItemIcon>people</mat-icon>
             <span matListItemTitle *ngIf="isExpanded">Usuários</span>
-          </a>
-          
+        </a>
+
+        <a mat-list-item routerLink="/azure-personal-tokens" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Token Azure' : ''" matTooltipPosition="right">
+            <mat-icon matListItemIcon>vpn_key</mat-icon> <span matListItemTitle *ngIf="isExpanded">Token Azure</span>
+        </a>  
+
         <a mat-list-item routerLink="/parameters" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Parâmetros' : ''" matTooltipPosition="right">
             <mat-icon matListItemIcon>settings</mat-icon>
             <span matListItemTitle *ngIf="isExpanded">Parâmetros</span>
+        </a>
+        
+        <a mat-list-item routerLink="/logs" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Logs' : ''" matTooltipPosition="right">
+            <mat-icon matListItemIcon>list_alt</mat-icon>
+            <span matListItemTitle *ngIf="isExpanded">Logs</span>
           </a>
       </mat-nav-list>
     </mat-sidenav>

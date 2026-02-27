@@ -1,0 +1,86 @@
+.crud-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Altura total disponível menos o padding para não criar barras de rolagem desnecessárias */
+    height: 100%; 
+  }
+  
+  /* Estilo da Barra de Ações Superior */
+  .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+    .action-title {
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #333;
+      }
+      .subtitle {
+        font-size: 0.85rem;
+        color: #777;
+      }
+    }
+  
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+  
+      button {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+  }
+  
+  /* Estilos da Tabela */
+  .table-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  
+    table {
+      width: 100%;
+    }
+  
+    .checkbox-column {
+      width: 60px;
+      padding-left: 16px;
+    }
+  
+    .text-muted {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  
+    /* Estilo visual ao selecionar uma linha ou passar o mouse */
+    tr.mat-mdc-row:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  
+    tr.selected-row {
+      background-color: rgba(25, 118, 210, 0.05); /* Cor primária bem fraquinha */
+    }
+  }
+  
+  /* Garante que a tabela funcione bem em telas menores */
+  @media (max-width: 768px) {
+    .action-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+  
+      .action-buttons {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+    }
+  }

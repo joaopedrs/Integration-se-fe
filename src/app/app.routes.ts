@@ -20,6 +20,14 @@ export const routes: Routes = [
         path: 'users',
         loadComponent: () => import('./features/users/users.component').then(m => m.UsersComponent)
       },
+      {
+        path: 'azure-personal-tokens',
+        loadComponent: () => import('./features/azure-personal-tokens/azure-personal-tokens.component').then(m => m.AzurePersonalTokensComponent)
+      },
+      {
+        path: 'logs',
+        loadComponent: () => import('./features/system-logs/system-logs.component').then(m => m.SystemLogsComponent)
+      },
       { path: '', redirectTo: 'parameters', pathMatch: 'full' }
     ]
   },

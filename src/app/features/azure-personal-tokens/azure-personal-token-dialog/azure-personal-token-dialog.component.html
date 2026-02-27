@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Token Azure' : 'Novo Token Azure' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="fill" class="full-width mt-2">
+      <mat-label>Nome da Conexão</mat-label>
+      <input matInput formControlName="name" placeholder="Ex: Integração DevOps" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Valor (Token)</mat-label>
+      <textarea matInput formControlName="value" rows="3" placeholder="Cole o token do Azure aqui..."></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data de Expiração</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="expirationAt" placeholder="Selecione a data">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="toggle-container">
+      <mat-slide-toggle formControlName="active" color="primary">
+        Token Ativo
+      </mat-slide-toggle>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">Salvar</button>
+</mat-dialog-actions>

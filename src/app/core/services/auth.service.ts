@@ -49,6 +49,14 @@ export class AuthService {
     return sessionStorage.getItem(this.TOKEN_KEY);
   }
 
+  refreshSession(refreshToken: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
+      tap(response => {
+        this.saveSession(response);
+      })
+    );
+  }
+
   getRefreshToken(): string | null {
     return sessionStorage.getItem(this.REFRESH_TOKEN_KEY);
   }

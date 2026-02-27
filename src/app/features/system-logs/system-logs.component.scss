@@ -1,0 +1,53 @@
+.crud-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+  }
+  
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  
+    mat-form-field {
+      flex: 1 1 200px;
+      margin-bottom: -1.25em; /* Remove o espaçamento extra do erro padrão do material */
+    }
+  
+    .filter-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+  }
+  
+  .table-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow-y: auto; /* IMPORTANTE: Garante o scroll vertical na tabela */
+    flex-grow: 1; /* Faz a tabela ocupar todo o resto da tela */
+    max-height: calc(100vh - 280px); /* Ajuste para não quebrar o layout */
+  
+    table { width: 100%; }
+  
+    tr.clickable-row:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  }
+  
+  .loading-spinner {
+    text-align: center;
+    padding: 16px;
+    color: #666;
+    font-size: 0.9rem;
+  }
