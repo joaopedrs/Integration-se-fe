@@ -11,10 +11,28 @@
       </div>
   
       <mat-nav-list>
-        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Dashboard' : ''" matTooltipPosition="right">
+        <a mat-list-item (click)="toggleDashboard()" [ngClass]="{'active-parent': isDashboardExpanded}" [matTooltip]="!isExpanded ? 'Dashboard' : ''" matTooltipPosition="right">
           <mat-icon matListItemIcon>dashboard</mat-icon>
           <span matListItemTitle *ngIf="isExpanded">Dashboard</span>
+          
+          <!-- <mat-icon matListItemMeta *ngIf="isExpanded">
+            {{ isDashboardExpanded ? 'expand_less' : 'expand_more' }}
+          </mat-icon> -->
         </a>
+
+        <div class="submenu-container" *ngIf="isExpanded && isDashboardExpanded">
+          
+          <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="submenu-item">
+            <mat-icon matListItemIcon>bar_chart</mat-icon>
+            <span matListItemTitle>Métricas</span>
+          </a>
+          
+          <a mat-list-item routerLink="/dashboard/desempenho" routerLinkActive="active-link" class="submenu-item">
+            <mat-icon matListItemIcon>speed</mat-icon>
+            <span matListItemTitle>Desempenho</span>
+          </a>
+
+        </div>
 
         <a mat-list-item routerLink="/users" routerLinkActive="active-link" [matTooltip]="!isExpanded ? 'Usuários' : ''" matTooltipPosition="right">
             <mat-icon matListItemIcon>people</mat-icon>

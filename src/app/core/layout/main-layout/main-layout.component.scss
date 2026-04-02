@@ -84,3 +84,35 @@ mat-sidenav-content {
   .content-collapsed {
     margin-left: 65px !important; /* Exatamente a largura do menu recolhido */
   }
+
+  /* Estilos para o Submenu do Dashboard */
+.submenu-container {
+  background-color: #f7f7f7; /* Fundo levemente mais escuro para diferenciar */
+  overflow: hidden;
+  
+  .submenu-item {
+    padding-left: 32px; /* Indentação para indicar hierarquia */
+    
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: #666;
+    }
+    
+    span {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Ajuste no destaque ativo dos subitens */
+  .active-link {
+    border-left: 3px solid #1976d2;
+    background-color: rgba(25, 118, 210, 0.05);
+  }
+}
+
+/* Destaque sutil para o menu pai quando está expandido */
+.active-parent {
+  background-color: rgba(0, 0, 0, 0.03);
+}

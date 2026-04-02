@@ -32,3 +32,14 @@ export interface LogFilter {
   description?: string;
   ipAddress?: string;
 }
+
+export interface EnumItem {
+  value: number;
+  label: string;
+}
+
+export interface SystemLogFilterOptions {
+  actionTypes: EnumItem[];
+  applications: EnumItem[];
+  logLevels: EnumItem[];
+}

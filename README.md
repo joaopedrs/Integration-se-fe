@@ -3,4 +3,4 @@
 --API BE local: ng serve
 --API BE externa: ng serve -c production
 -Para build:
---ng build --prod
+    ng build --configuration production

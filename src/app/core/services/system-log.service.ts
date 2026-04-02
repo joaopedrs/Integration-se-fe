@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SystemLog, PaginatedResponse, LogFilter } from '../models/system-log.model';
+import { SystemLog, PaginatedResponse, LogFilter, SystemLogFilterOptions } from '../models/system-log.model';
 
 @Injectable({ providedIn: 'root' })
 export class SystemLogService {
@@ -25,5 +25,9 @@ export class SystemLogService {
     if (filter.ipAddress) params = params.set('ipAddress', filter.ipAddress);
 
     return this.http.get<PaginatedResponse<SystemLog>>(this.apiUrl, { params });
+  }
+
+  getFilters(): Observable<SystemLogFilterOptions> {
+    return this.http.get<SystemLogFilterOptions>(`${this.apiUrl}/filters`);
   }
 }

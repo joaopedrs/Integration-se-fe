@@ -42,10 +42,9 @@ export class SystemLogsComponent implements OnInit {
   currentPage = 1;
   pageSize = 50;
 
-  // Mock dos enums (Ajuste os valores numéricos e textos conforme seus Enums no C#)
-  actionTypes = [{ value: 1, label: 'Create' }, { value: 2, label: 'Update' }, { value: 3, label: 'Delete' }, { value: 4, label: 'Login' }];
-  applications = [{ value: 1, label: 'UserController' }, { value: 2, label: 'AuthController' }];
-  logLevels = [{ value: 1, label: 'Info' }, { value: 2, label: 'Warning' }, { value: 3, label: 'Error' }];
+  actionTypes: any[] = [];
+  applications: any[] = [];
+  logLevels: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +56,7 @@ export class SystemLogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.loadFilters();
     this.loadUsers();
     this.loadLogs(true); // true = primeira carga (reseta tabela)
   }
@@ -80,6 +80,19 @@ export class SystemLogsComponent implements OnInit {
 
   applyFilter(): void {
     this.loadLogs(true); // Ao filtrar, reseta a paginação e limpa a tabela
+  }
+
+  loadFilters(): void {
+    this.logService.getFilters().subscribe({
+      next: (filters) => {
+        this.actionTypes = filters.actionTypes;
+        this.applications = filters.applications;
+        this.logLevels = filters.logLevels;
+      },
+      error: () => {
+        this.snackBar.open('Erro ao carregar as opções de filtro.', 'Fechar', { duration: 3000 });
+      }
+    });
   }
 
   clearFilter(): void {

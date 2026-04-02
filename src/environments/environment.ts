@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://www.selbetti.com.br/Integration/api/'
+    apiUrl: 'https://serviceexperience.sportal.com.br/IntegrationSEAPI/api'
   };

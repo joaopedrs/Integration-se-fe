@@ -28,7 +28,11 @@ export const routes: Routes = [
         path: 'logs',
         loadComponent: () => import('./features/system-logs/system-logs.component').then(m => m.SystemLogsComponent)
       },
-      { path: '', redirectTo: 'parameters', pathMatch: 'full' }
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
   { path: '**', redirectTo: '' }
