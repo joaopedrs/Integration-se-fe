@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
   
   // Estado Global dos Filtros
   globalFilter: WorkItemFilter = {
-    statuses: [2, 3, 4] 
+    statuses: [2, 3, 4] ,
+    providers: [1, 2, 3, 4, 5, 6]
   };
 
   selectedBuId: number | null = null;

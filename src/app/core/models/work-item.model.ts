@@ -39,45 +39,34 @@ export interface WorkItemDto {
   id: number;
   azureId?: number;
   itsmId: string;
-  product: string;
+  productId?: number;
+  productName: string;
+  businessUnitId?: number;
+  businessUnitName: string;
+  WorkItemTypeId?: number;
+  WorkItemTypeName: string;
+  itsmProvider: string;
   azureWorkItemType: string;
   azureState: string;
   azureBoardColumn: string;
   azureAssignedTo: string;
   azureCreatedDate: Date;
+  azureClosedDate?: Date;
+  azureClassification: string;
+  azureConclusion: string;
   itsmClient: string;
+  itsmProduct: string;
+  itsmAnalystId: string;
   itsmAnalyst: string;
   itsmCriticality: string;
   itsmProblem: string;
+  itsmAnalystProblem: string;
+  itsmCreatedDate?: Date;
+  itsmStatus: string;
   itsmSLAStart: string;
   itsmSLA: string;
+  itsmSLAEnd: string;
   totalTimeSpend: string;
   retry: number;
+  status: string;
 }
-
-export interface PaginatedResponse<T> {
-    data: T[];
-    totalCount: number;
-    pageNumber: number;
-    pageSize: number;
-  }
-  
-  export interface WorkItemDto {
-    id: number;
-    azureId?: number;
-    itsmId: string;
-    product: string;
-    azureWorkItemType: string;
-    azureState: string;
-    azureBoardColumn: string;
-    azureAssignedTo: string;
-    azureCreatedDate: Date;
-    itsmClient: string;
-    itsmAnalyst: string;
-    itsmCriticality: string;
-    itsmProblem: string;
-    itsmSLAStart: string;
-    itsmSLA: string;
-    totalTimeSpend: string;
-    retry: number;
-  }
