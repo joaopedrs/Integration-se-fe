@@ -1,0 +1,128 @@
+<div class="crud-container">
+  
+    <div class="action-bar" style="margin-bottom: 16px; padding: 0 16px;">
+      <div class="action-title">
+        <h2>Chamados (WorkItems)</h2>
+        <span class="subtitle">Gestão em lote de chamados integrados</span>
+      </div>
+    </div>
+  
+    <div class="toolbar-row mb-3" style="display: flex; justify-content: space-between; align-items: center; padding: 0 16px 16px 16px;">
+      
+      <div class="action-buttons">
+        <button mat-flat-button color="primary" [disabled]="selection.selected.length === 0" (click)="openSetProductDialog()" style="height: 48px;">
+          <mat-icon>inventory_2</mat-icon> Definir Produto
+        </button>
+      </div>
+  
+      <div class="filters-row" style="display: flex; gap: 16px; align-items: center;">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="density-3">
+          <mat-label>Código ITSM</mat-label>
+          <input matInput [(ngModel)]="filterItsmId" placeholder="Ex: INC123456" />
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="density-3">
+          <mat-label>Azure ID</mat-label>
+          <input matInput type="number" [(ngModel)]="filterAzureId" placeholder="Ex: 98765" />
+        </mat-form-field>
+    
+        <button mat-raised-button color="accent" (click)="applyFilters()" [disabled]="isLoading" style="height: 48px;">
+          <mat-icon>search</mat-icon> Pesquisar
+        </button>
+      </div>
+  
+    </div>
+  
+    <div class="table-container mat-elevation-z2" style="position: relative;">
+      
+      <div class="loading-shade" *ngIf="isLoading" style="position: absolute; top:0; bottom:0; left:0; right:0; background: rgba(255,255,255,0.7); z-index: 10; display:flex; justify-content:center; align-items:center;">
+        <p>A carregar...</p>
+      </div>
+  
+      <table mat-table [dataSource]="dataSource" class="full-width-table">
+        
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef class="checkbox-column">
+            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          color="primary"></mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row" class="checkbox-column">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          color="primary"></mat-checkbox>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let item"> {{item.id}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="azureId">
+          <th mat-header-cell *matHeaderCellDef> Azure ID </th>
+          <td mat-cell *matCellDef="let item"> {{item.azureId || '-'}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="itsmId">
+          <th mat-header-cell *matHeaderCellDef> ITSM ID </th>
+          <td mat-cell *matCellDef="let item"> <strong>{{item.itsmId}}</strong> </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef> Produto </th>
+          <td mat-cell *matCellDef="let item"> 
+            <span [class.text-muted]="!item.productId">{{item.productName || 'Desconhecido'}}</span> 
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="azureWorkItemType">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let item"> {{item.azureWorkItemType || '-'}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="azureState">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let item"> {{item.azureState || '-'}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="azureBoardColumn">
+          <th mat-header-cell *matHeaderCellDef> Coluna Board </th>
+          <td mat-cell *matCellDef="let item"> {{item.azureBoardColumn}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="azureAssignedTo">
+          <th mat-header-cell *matHeaderCellDef> Atribuído A </th>
+          <td mat-cell *matCellDef="let item"> {{item.azureAssignedTo}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="itsmClient">
+          <th mat-header-cell *matHeaderCellDef> Cliente ITSM </th>
+          <td mat-cell *matCellDef="let item"> {{item.itsmClient}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Integração </th>
+          <td mat-cell *matCellDef="let item"> {{item.status}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+        
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data-table" colspan="11">Nenhum chamado encontrado para os filtros selecionados.</td>
+        </tr>
+      </table>
+    </div>
+  
+    <mat-paginator 
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[10, 20, 50, 100]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  
+  </div>

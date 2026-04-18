@@ -8,9 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox'; // <-- Import do Checkbox
 
 import { User } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { SquadService } from '../../../core/services/squad.service';
+import { Squad } from '../../../core/models/squad.model';
 
 @Component({
   selector: 'app-user-dialog',
@@ -18,7 +21,7 @@ import { AuthService } from '../../../core/services/auth.service';
   imports: [
     CommonModule, ReactiveFormsModule, MatDialogModule,
     MatFormFieldModule, MatInputModule, MatButtonModule,
-    MatSelectModule, MatSlideToggleModule
+    MatSelectModule, MatSlideToggleModule, MatCheckboxModule // <-- Adicionado no array de imports
   ],
   templateUrl: './user-dialog.component.html',
   styleUrls: ['./user-dialog.component.scss']
@@ -27,11 +30,15 @@ export class UserDialogComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
 
+  squads: Squad[] = [];
+  selectedSquadIds: number[] = [];
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<UserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User | null,
-    private authService: AuthService
+    private authService: AuthService,
+    private squadService: SquadService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +46,16 @@ export class UserDialogComponent implements OnInit {
     const initialRole = this.data?.role ?? 2; 
     
     const loggedUserId = this.authService.getLoggedUserId();
-    
     const isSelf = this.isEditMode && this.data?.id === loggedUserId;
+
+    // Carrega as squads ativas dinamicamente
+    this.squadService.getAll().subscribe(res => {
+        this.squads = res.filter(s => s.isActive);
+    });
+    
+    // Mapeia as squads que o usuário já pertence (se for edição)
+    // Tratamos com 'any' temporariamente caso a interface User ainda não tenha a propriedade squadUsers mapeada no front
+    this.selectedSquadIds = (this.data as any)?.squadIds || [];
 
     this.form = this.fb.group({
       name: [this.data?.name || '', Validators.required],
@@ -74,9 +89,20 @@ export class UserDialogComponent implements OnInit {
     passwordControl?.updateValueAndValidity();
   }
 
+  toggleSquad(squadId: number, isChecked: boolean) {
+    if (isChecked) {
+      this.selectedSquadIds.push(squadId);
+    } else {
+      this.selectedSquadIds = this.selectedSquadIds.filter(id => id !== squadId);
+    }
+  }
+
   onSave(): void {
     if (this.form.valid) {
-      const formData = { ...this.form.getRawValue() };
+      const formData = { 
+        ...this.form.getRawValue(),
+        squadIds: this.selectedSquadIds // Adicionando as squads ao payload que volta para o componente principal
+      };
       
       if (this.isEditMode && !formData.password) {
         delete formData.password;

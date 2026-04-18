@@ -26,6 +26,8 @@ export interface WorkItemCountByBu {
     providers?: number[]; 
     boardColumns?: string[];
     olderThanDays?: number;
+    itsmId?: string;
+    azureId?: number;
   }
 
   export interface PaginatedResponse<T> {
@@ -69,4 +71,33 @@ export interface WorkItemDto {
   totalTimeSpend: string;
   retry: number;
   status: string;
+}
+
+export interface UpdateWorkItem {
+  productId?: number;
+  workItemTypeId?: number;
+  itsmProvider?: string | number;
+  azureWorkItemType?: string;
+  azureState?: string;
+  azureBoardColumn?: string;
+  azureAssignedTo?: string;
+  azureCreatedDate?: Date;
+  azureClosedDate?: Date;
+  azureClassification?: string;
+  azureConclusion?: string;
+  itsmClient?: string;
+  itsmProduct?: string;
+  itsmAnalystId?: string;
+  itsmAnalyst?: string;
+  itsmCriticality?: string | number;
+  itsmProblem?: string;
+  itsmAnalystProblem?: string;
+  itsmCreatedDate?: Date;
+  itsmStatus?: string;
+  itsmSLAStart?: string;
+  itsmSLA?: string;
+  itsmSLAEnd?: string;
+  totalTimeSpend?: string;
+  retry?: number;
+  status?: string | number;
 }

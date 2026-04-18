@@ -27,6 +27,18 @@
           <mat-option [value]="3">Usuário de Serviço</mat-option>
         </mat-select>
       </mat-form-field>
+      
+    <div class="checkbox-section mt-3 mb-3">
+      <p class="mat-body-2 mb-2 text-muted">Squads do Profissional:</p>
+      <div class="checkbox-grid" style="display: grid; grid-template-columns: 1fr; gap: 8px; max-height: 150px; overflow-y: auto; border: 1px solid #e0e0e0; padding: 10px; border-radius: 4px;">
+        <mat-checkbox *ngFor="let squad of squads"
+                      [checked]="selectedSquadIds.includes(squad.id)"
+                      (change)="toggleSquad(squad.id, $event.checked)"
+                      color="primary">
+          {{ squad.description }}
+        </mat-checkbox>
+      </div>
+    </div>
 
     <div class="toggle-container" *ngIf="isEditMode">
       <mat-slide-toggle formControlName="isActive" color="primary">

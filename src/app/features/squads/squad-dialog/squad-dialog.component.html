@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Squad' : 'Nova Squad' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="fill" class="full-width mt-2">
+      <mat-label>Nome da Squad</mat-label>
+      <input matInput formControlName="description" placeholder="Ex: N1 Service Experience" />
+    </mat-form-field>
+
+    <div class="checkbox-section mt-3">
+      <p class="mat-body-2 mb-2 text-muted">Produtos Atendidos pela Squad:</p>
+      <div class="checkbox-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 150px; overflow-y: auto;">
+        <mat-checkbox *ngFor="let prod of products"
+                      [checked]="selectedProductIds.includes(prod.id)"
+                      (change)="toggleProduct(prod.id, $event.checked)"
+                      color="primary">
+          {{ prod.description }} </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="toggle-container mt-3" *ngIf="isEditMode">
+      <mat-slide-toggle formControlName="isActive" color="primary">
+        Squad Ativa
+      </mat-slide-toggle>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">Salvar</button>
+</mat-dialog-actions>

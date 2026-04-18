@@ -32,6 +32,22 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
+      {
+        path: 'dashboard/performance',
+        loadComponent: () => import('./features/dashboard/performance/performance.component').then(m => m.PerformanceComponent)
+      },
+      {
+        path: 'squads',
+        loadComponent: () => import('./features/squads/squads.component').then(m => m.SquadsComponent)
+      },
+      {
+        path: 'products',
+        loadComponent: () => import('./features/products/products.component').then(m => m.ProductsComponent)
+      },
+      {
+        path: 'workitems',
+        loadComponent: () => import('./features/workitems/workitems.component').then(m => m.WorkitemsComponent)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

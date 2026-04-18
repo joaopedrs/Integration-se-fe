@@ -8,7 +8,8 @@ import {
   WorkItemCountByColumn, 
   WorkItemFilter,
   PaginatedResponse,
-  WorkItemDto 
+  WorkItemDto, 
+  UpdateWorkItem
 } from '../models/work-item.model';
 
 @Injectable({ providedIn: 'root' })
@@ -37,6 +38,10 @@ export class WorkItemService {
     return this.http.get<PaginatedResponse<WorkItemDto>>(`${this.apiUrl}`, { params: this.buildParams(filter) });
   }
 
+  updateWorkItem(id: number, data: UpdateWorkItem): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, data);
+  }
+
   private buildParams(filter?: WorkItemFilter): HttpParams {
     let params = new HttpParams();
     if (!filter) return params;
@@ -50,6 +55,9 @@ export class WorkItemService {
     if (filter.providers) filter.providers.forEach(id => params = params.append('Providers', id));
     if (filter.boardColumns) filter.boardColumns.forEach(c => params = params.append('BoardColumns', c));
     if (filter.olderThanDays) params = params.append('OlderThanDays', filter.olderThanDays);
+
+    if (filter.itsmId) params = params.append('ItsmId', filter.itsmId);
+    if (filter.azureId) params = params.append('AzureId', filter.azureId);
 
     return params;
   }

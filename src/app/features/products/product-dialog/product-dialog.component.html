@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Produto' : 'Novo Produto' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="fill" class="full-width mt-2">
+      <mat-label>Descrição do Produto</mat-label>
+      <input matInput formControlName="description" placeholder="Ex: SmartShare Enterprise" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Apelido / Nickname</mat-label>
+      <input matInput formControlName="nickname" placeholder="Ex: SmartShare" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>ID da Unidade de Negócio (BU)</mat-label>
+      <input matInput type="number" formControlName="businessUnitId" placeholder="Ex: 1" />
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">Salvar</button>
+</mat-dialog-actions>
